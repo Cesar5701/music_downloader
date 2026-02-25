@@ -43,7 +43,8 @@ export default function App() {
                 body: JSON.stringify({
                     url,
                     title: info.title,
-                    artist: info.artist
+                    artist: info.artist,
+                    album: info.album
                 })
             });
             const data = await res.json();
@@ -124,11 +125,20 @@ export default function App() {
                                             placeholder="Artista"
                                         />
                                     </div>
+                                    <div className="flex items-center gap-3 bg-zinc-800/50 p-3 rounded-lg">
+                                        <Disc className="text-zinc-500" size={18} />
+                                        <input
+                                            className="bg-transparent border-none w-full focus:ring-0 text-sm"
+                                            value={info.album || ''}
+                                            onChange={(e) => setInfo({ ...info, album: e.target.value })}
+                                            placeholder="Álbum"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="mt-8 flex items-center justify-between">
                                     <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">
-                                        Formato: MP3 192kbps
+                                        Formato: MP3 320kbps
                                     </div>
                                     <button
                                         onClick={handleDownload}
