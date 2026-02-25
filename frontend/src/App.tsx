@@ -13,6 +13,30 @@ export default function App() {
     const [info, setInfo] = useState<any>(null);
     const [status, setStatus] = useState<Status | null>(null);
     const [selectedTracks, setSelectedTracks] = useState<string[]>([]);
+    const [progressData, setProgressData] = useState<any>({});
+
+    React.useEffect(() => {
+        let interval: any;
+        if (loadingDownload) {
+            interval = setInterval(async () => {
+                try {
+                    const res = await fetch('http://localhost:8000/progress');
+                    const data = await res.json();
+                    setProgressData(data);
+                } catch (e) { }
+            }, 1000);
+        } else {
+            setProgressData({});
+        }
+        return () => clearInterval(interval);
+    }, [loadingDownload]);
+
+    const formatSpeed = (bytesPerSec: number) => {
+        if (!bytesPerSec) return '0 B/s';
+        const mb = bytesPerSec / 1024 / 1024;
+        if (mb >= 1) return `${mb.toFixed(2)} MB/s`;
+        return `${(bytesPerSec / 1024).toFixed(2)} KB/s`;
+    };
 
     const fetchInfo = async () => {
         if (!url) return;
@@ -154,6 +178,29 @@ export default function App() {
                                         Descargar ({selectedTracks.length})
                                     </button>
                                 </div>
+                                {loadingDownload && (
+                                    <div className="mt-4 space-y-3">
+                                        {info.tracks.filter((t: any) => selectedTracks.includes(t.url)).map((t: any) => {
+                                            const prog = progressData[t.id];
+                                            if (!prog) return null;
+                                            const isProcessing = prog.status === 'processing';
+                                            return (
+                                                <div key={t.id} className="bg-zinc-800 p-3 rounded-xl border border-zinc-700">
+                                                    <div className="flex justify-between text-xs mb-1">
+                                                        <span className="font-semibold truncate pr-2" title={t.title}>{t.title}</span>
+                                                        <span className="shrink-0">{isProcessing ? 'Procesando...' : `${prog.percent.toFixed(1)}% - ${formatSpeed(prog.speed)}`}</span>
+                                                    </div>
+                                                    <div className="w-full bg-zinc-900 rounded-full h-2 overflow-hidden">
+                                                        <div
+                                                            className={`h-2 rounded-full transition-all duration-300 ${isProcessing ? 'bg-green-500 w-full animate-pulse' : 'bg-red-500'}`}
+                                                            style={{ width: `${isProcessing ? 100 : prog.percent}%` }}
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <div className="md:flex">
@@ -199,18 +246,34 @@ export default function App() {
                                         </div>
                                     </div>
 
-                                    <div className="mt-8 flex items-center justify-between">
-                                        <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">
-                                            Formato: MP3 320kbps
+                                    <div className="mt-8 flex flex-col gap-4">
+                                        <div className="flex items-center justify-between w-full">
+                                            <div className="text-xs text-zinc-500 uppercase tracking-widest font-bold">
+                                                Formato: MP3 320kbps
+                                            </div>
+                                            <button
+                                                onClick={handleDownload}
+                                                disabled={loadingDownload || loadingInfo}
+                                                className="bg-red-600 hover:bg-red-500 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors disabled:opacity-50"
+                                            >
+                                                {loadingDownload ? <Loader2 className="animate-spin" size={20} /> : <Download size={20} />}
+                                                Descargar ahora
+                                            </button>
                                         </div>
-                                        <button
-                                            onClick={handleDownload}
-                                            disabled={loadingDownload || loadingInfo}
-                                            className="bg-red-600 hover:bg-red-500 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors disabled:opacity-50"
-                                        >
-                                            {loadingDownload ? <Loader2 className="animate-spin" size={20} /> : <Download size={20} />}
-                                            Descargar ahora
-                                        </button>
+                                        {loadingDownload && progressData[info.id] && (
+                                            <div className="bg-zinc-800 p-3 rounded-xl border border-zinc-700 mt-2">
+                                                <div className="flex justify-between text-xs mb-1">
+                                                    <span className="font-semibold truncate pr-2" title={info.title}>{info.title}</span>
+                                                    <span className="shrink-0">{progressData[info.id].status === 'processing' ? 'Procesando...' : `${progressData[info.id].percent.toFixed(1)}% - ${formatSpeed(progressData[info.id].speed)}`}</span>
+                                                </div>
+                                                <div className="w-full bg-zinc-900 rounded-full h-2 overflow-hidden">
+                                                    <div
+                                                        className={`h-2 rounded-full transition-all duration-300 ${progressData[info.id].status === 'processing' ? 'bg-green-500 w-full animate-pulse' : 'bg-red-500'}`}
+                                                        style={{ width: `${progressData[info.id].status === 'processing' ? 100 : progressData[info.id].percent}%` }}
+                                                    ></div>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
