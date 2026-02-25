@@ -17,3 +17,7 @@ media/nuevo/
 
 # Logs
 backend/*.log
+
+# Entorno (API keys)
+.env
+backend/.env
