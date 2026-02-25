@@ -1,0 +1,11 @@
+{
+  "name": "MusicDownloader Pro",
+  "description": "Extractor de audio de YouTube con soporte completo para metadatos ID3 y carátulas.",
+  "version": "1.0.0",
+  "technologies": [
+    "FastAPI",
+    "yt-dlp",
+    "React",
+    "Tailwind CSS"
+  ]
+}

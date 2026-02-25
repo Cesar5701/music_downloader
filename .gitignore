@@ -1,0 +1,19 @@
+# Python Virtual Environment
+backend/.venv/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Python cache
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+
+# Media specific
+media/downloads/
+media/nuevo/
+
+# Logs
+backend/*.log
