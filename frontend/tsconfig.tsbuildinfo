@@ -1,0 +1,1 @@
+{"root":["./vite.config.ts","./src/lib/api.ts","./src/types/index.ts","./src/App.tsx","./src/main.tsx","./src/components/Header.tsx","./src/components/PlaylistView.tsx","./src/components/SearchForm.tsx","./src/components/StatusBar.tsx","./src/components/TrackView.tsx"],"version":"5.9.3"}
