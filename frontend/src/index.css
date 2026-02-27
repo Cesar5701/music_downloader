@@ -1,2 +1,14 @@
 @import "tailwindcss";
-@source "../src/**/*.{html,js,ts,jsx,tsx}";
+@source "../index.html";
+@source "./App.tsx";
+@source "./main.tsx";
+@source "./components/Header.tsx";
+@source "./components/PlaylistView.tsx";
+@source "./components/SearchForm.tsx";
+@source "./components/StatusBar.tsx";
+@source "./components/TrackView.tsx";
+
+@theme {
+  --color-zinc-950: #09090b;
+  --color-white: #ffffff;
+}
