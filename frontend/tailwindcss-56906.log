@@ -1,0 +1,16 @@
+2026-02-26T20:22:01.926839Z  INFO tailwindcss_oxide::scanner: Provided sources:
+2026-02-26T20:22:01.926882Z  INFO tailwindcss_oxide::scanner: Source: PublicSourceEntry { base: "/home/cesar/Documents/descargar_musica/frontend", pattern: "**/*", negated: false }
+2026-02-26T20:22:01.926926Z  INFO tailwindcss_oxide::scanner: Source: PublicSourceEntry { base: "/home/cesar/Documents/descargar_musica/frontend/src", pattern: "./components", negated: false }
+2026-02-26T20:22:01.926980Z  INFO tailwindcss_oxide::scanner: Optimized sources:
+2026-02-26T20:22:01.926986Z  INFO tailwindcss_oxide::scanner: Source: Auto { base: "/home/cesar/Documents/descargar_musica/frontend" }
+2026-02-26T20:22:01.926992Z  INFO tailwindcss_oxide::scanner: Source: Auto { base: "/home/cesar/Documents/descargar_musica/frontend/src/components" }
+2026-02-26T20:22:01.928429Z  INFO discover_sources: tailwindcss_oxide::scanner: enter
+2026-02-26T20:22:01.928455Z  INFO discover_sources:walk_synchronous: tailwindcss_oxide::scanner: enter
+2026-02-26T20:22:01.928906Z  INFO discover_sources:walk_synchronous: tailwindcss_oxide::scanner: exit
+2026-02-26T20:22:01.929550Z  INFO discover_sources: tailwindcss_oxide::scanner: exit
+2026-02-26T20:22:01.929583Z  INFO extract_candidates: tailwindcss_oxide::scanner: enter
+2026-02-26T20:22:01.929594Z  INFO extract_candidates:parse_all_blobs: tailwindcss_oxide::scanner: enter
+2026-02-26T20:22:01.929602Z  INFO extract_candidates:parse_all_blobs:extract: tailwindcss_oxide::scanner: enter
+2026-02-26T20:22:01.929609Z  INFO extract_candidates:parse_all_blobs:extract: tailwindcss_oxide::scanner: exit
+2026-02-26T20:22:01.929615Z  INFO extract_candidates:parse_all_blobs: tailwindcss_oxide::scanner: exit
+2026-02-26T20:22:01.929621Z  INFO extract_candidates: tailwindcss_oxide::scanner: exit
